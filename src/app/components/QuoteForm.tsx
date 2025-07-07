@@ -5,16 +5,14 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { quotes } from '@/lib/quotes';
 
-const availableTopics = ['inspiration', 'success', 'life'];
-
 export default function QuoteForm() {
   const [topic, setTopic] = useState('');
   const [results, setResults] = useState<string[]>([]);
-  const [submitted, setSubmitted] = useState(false); 
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true); // <-- Mark form as submitted
+    setSubmitted(true);
     const matched = quotes.filter(q => q.topic.toLowerCase() === topic.toLowerCase());
     const selected = matched.slice(0, 3).map(q => q.quote);
     setResults(selected);
@@ -42,7 +40,9 @@ export default function QuoteForm() {
         }
 
         {submitted && results.length === 0 && topic && (
-          <p className="text-destructive">No quotes found for "{topic}".</p>
+          <p className="text-destructive">
+            No quotes found for <span className="font-semibold">&quot;{topic}&quot;</span>.
+          </p>
         )}
       </div>
     </div>
